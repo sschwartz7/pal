@@ -1,12 +1,42 @@
-function displayMessage(){
-    let inputBox= document.getElementById('message');
-    let message= inputBox.value;
+//entry point
+function getValues() {
+    let userString = document.getElementById("userString").value;
+    userString = userString.replace(/ /g, "").toLowerCase();
+    let revString= reverseString(userString);
+    let answer = checkForPalindrome(userString, revString);
+    displayString(answer, revString);
+}
 
-    Swal.fire(
-        {
-            backdrop: false,
-            title: 'App Name',
-            text: message
+//logic
+function reverseString(userString) {
+    let revString = '';
+    for (let index = userString.length - 1; index >= 0; index--) {
+        revString += userString[index];
+    }
+    return (revString);
+}
+
+function checkForPalindrome(userString, revString) {
+    let answer;
+    for (let index = 0; index < userString.length; index++) {
+        if (userString[index] != revString[index]) {
+            answer = false;
         }
-      );
+    }
+    return (answer);
+}
+
+//display
+function displayString(answer, revString) {
+    if(answer == false){
+        Swal.fire({
+            title:'This is not a palindrome!',
+            text:  revString,
+         });
+    }else{
+        Swal.fire(
+            'This is a palindrome!',
+            revString
+          );
+    }
 }

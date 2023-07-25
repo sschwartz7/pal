@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>App Name</title>
+    <title>Palindrome</title>
 
     <!-- Bootsstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -25,10 +25,10 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
+            <div class=" container-fluid">
                 <a class="navbar-brand" href="index.html">
                     &nbsp;<img src="/img/ssmark.svg" height="30" alt="developer logo" />
-                    &nbsp;App Name</a>
+                    &nbsp;Palindrome</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
                             <a class="nav-link active" aria-current="page" href="/code.html">The Code</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://github.com/sschwartz7/Portfolio">The Repo</a>
+                            <a class="nav-link" href="https://github.com/sschwartz7/Reversi">The Repo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://schwartzwork.netlify.app/">About</a>
@@ -65,25 +65,59 @@
             <div class="col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-js">
-                        function displayMessage(){
-                            let inputBox= document.getElementById('message');
-                            let message= inputBox.value;
-                        
-                            Swal.fire(
-                                {
-                                    backdrop: false,
-                                    title: 'App Name',
-                                    text: message
-                                }
-                              );
-                        }
+                        //entry point
+function getValues() {
+    let userString = document.getElementById("userString").value;
+    userString = userString.replace(/ /g, "").toLowerCase();
+    let revString= reverseString(userString);
+    let answer = checkForPalindrome(userString, revString);
+    displayString(answer, revString);
+}
+
+//logic
+function reverseString(userString) {
+    let revString = '';
+    for (let index = userString.length - 1; index >= 0; index--) {
+        revString += userString[index];
+    }
+    return (revString);
+}
+
+function checkForPalindrome(userString, revString) {
+    let answer;
+    for (let index = 0; index < userString.length; index++) {
+        if (userString[index] != revString[index]) {
+            answer = false;
+        }
+    }
+    return (answer);
+}
+
+//display
+function displayString(answer, revString) {
+    if(answer == false){
+        Swal.fire({
+            title:'This is not a palindrome!',
+            text:  revString,
+         });
+    }else{
+        Swal.fire(
+            'This is a palindrome!',
+            revString
+          );
+    }
+}
                     </code>
                 </pre>
             </div>
             <div class="col-lg-4">
-                <p>There is one function</p>
-                <h5>displayMessage</h5>
-                <p>Shows a SweetAlert with the value of the <code>message</code> varialebe</p>
+                <p>There are three functions in this code. The first function retrieves the values from user inputs runs
+                    the other two functions.</p>
+                <p>The second function takes the input from the user and using a decrimenting for loop reverses it. It
+                    is able to do this becasue a string is a defined array. It then returns the reversed string to the
+                    first function.</p>
+                <p>The code then takes the reversed string from the previous function and sets that as the HTML element
+                    'results'. It then removes the 'invisible' class from the alert box making it visible.</p>
             </div>
         </div>
     </main>
@@ -93,10 +127,10 @@
                 <div class="col text-lg-start">&copy; 2023 Simon Schwartz</div>
                 <div class="col">
                     <a href="https://schwartzwork.netlify.app/">
-                    <img src="/img/sslogo.svg" height="30"/></a>
+                        <img src="/img/sslogo.svg" height="30" /></a>
                 </div>
                 <div class="col text-lg-end">
-                     <a class="text-decoration-none" href="https://www.linkedin.com/in/sbschwartz94/"><i
+                    <a class="text-decoration-none" href="https://www.linkedin.com/in/sbschwartz94/"><i
                             class="bi bi-linkedin p-2 socialIcons"></i></a>
                     <a class="text-decoration-none" href="https://github.com/sschwartz7"><i
                             class="bi bi-github p-2 socialIcons"></i></a>
@@ -111,7 +145,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
-    <script src="/JS/prism.js"></script> 
+    <script src="/JS/prism.js"></script>
     <script>
         Prism.plugins.NormalizeWhitespace.setDefaults({
             'remove-trailing': true,
@@ -119,7 +153,7 @@
             'left-trim': true,
             'right-trim': true
         })
-    </script>   
+    </script>
 </body>
 
 </html>
