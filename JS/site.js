@@ -32,11 +32,15 @@ function displayString(answer, revString) {
         Swal.fire({
             title:'This is not a palindrome!',
             text:  revString,
+            background: '#CD5C5C',
+            confirmButtonColor: '#FF6347'
          });
     }else{
-        Swal.fire(
-            'This is a palindrome!',
-            revString
-          );
+        Swal.fire({
+            title:'This is a palindrome!',
+            text:  revString,
+            background: '#9DC183',
+            confirmButtonColor: '#01796F'
+         });
     }
 }
