@@ -4,7 +4,7 @@ function getValues() {
     userString = userString.replace(/ /g, "").toLowerCase();
     let revString= reverseString(userString);
     let answer = checkForPalindrome(userString, revString);
-    displayString(answer, revString);
+    displayResults(answer, revString);
 }
 
 //logic
@@ -17,17 +17,17 @@ function reverseString(userString) {
 }
 
 function checkForPalindrome(userString, revString) {
-    let answer;
     for (let index = 0; index < userString.length; index++) {
         if (userString[index] != revString[index]) {
-            answer = false;
+            return false;
+        }else{
+            return true;
         }
     }
-    return (answer);
 }
 
 //display
-function displayString(answer, revString) {
+function displayResults(answer, revString) {
     if(answer == false){
         Swal.fire({
             title:'This is not a palindrome!',
