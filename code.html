@@ -66,58 +66,62 @@
                 <pre class="line-numbers">
                     <code class="language-js">
                         //entry point
-function getValues() {
-    let userString = document.getElementById("userString").value;
-    userString = userString.replace(/ /g, "").toLowerCase();
-    let revString= reverseString(userString);
-    let answer = checkForPalindrome(userString, revString);
-    displayString(answer, revString);
-}
-
-//logic
-function reverseString(userString) {
-    let revString = '';
-    for (let index = userString.length - 1; index >= 0; index--) {
-        revString += userString[index];
-    }
-    return (revString);
-}
-
-function checkForPalindrome(userString, revString) {
-    let answer;
-    for (let index = 0; index < userString.length; index++) {
-        if (userString[index] != revString[index]) {
-            answer = false;
-        }
-    }
-    return (answer);
-}
-
-//display
-function displayString(answer, revString) {
-    if(answer == false){
-        Swal.fire({
-            title:'This is not a palindrome!',
-            text:  revString,
-         });
-    }else{
-        Swal.fire(
-            'This is a palindrome!',
-            revString
-          );
-    }
-}
+                        function getValues() {
+                            let userString = document.getElementById("userString").value;
+                            let regex = /[^a-z0-9]/gi; //anything that is not a letter or a number
+                            userString = userString.replace(regex, "").toLowerCase();
+                            let palindromeObj = checkForPalindrome(userString);
+                            displayResults(palindromeObj);
+                        }
+                        
+                        //logic
+                        function checkForPalindrome(userString) {
+                            let revString = '';
+                            for (let index = userString.length - 1; index >= 0; index--) {
+                                revString += userString[index];
+                            };
+                            let palindromObj ={isPalindrome: (revString == userString), reversedString: revString};
+                            return palindromObj
+                        }
+                        
+                        //display
+                        function displayResults(palindromeObj) {
+                            if(palindromeObj.isPalindrome == false){
+                                Swal.fire({
+                                    title:'This is not a palindrome!',
+                                    text: palindromeObj.revString,
+                                    background: '#CD5C5C',
+                                    confirmButtonColor: '#FF6347'
+                                 });
+                            }else{
+                                Swal.fire({
+                                    title:'This is a palindrome!',
+                                    text: palindromeObj.revString,
+                                    background: '#9DC183',
+                                    confirmButtonColor: '#01796F'
+                                });
+                            }
+                        }
+                        
                     </code>
                 </pre>
             </div>
             <div class="col-lg-4">
-                <p>There are three functions in this code. The first function retrieves the values from user inputs runs
-                    the other two functions.</p>
+                <p>There are three functions in this code. The first function retrieves the value from the userString
+                    html element. This is then run through an expression to remove any non-alphanumeric and to make sure
+                    the sting is all lower case. The palindromeObj is then created and assigned by running the
+                    checkForPalindrome function. Finally the displayResults function is run passing the palindromeObj
+                    object.</p>
                 <p>The second function takes the input from the user and using a decrimenting for loop reverses it. It
-                    is able to do this becasue a string is a defined array. It then returns the reversed string to the
-                    first function.</p>
-                <p>The code then takes the reversed string from the previous function and sets that as the HTML element
-                    'results'. It then removes the 'invisible' class from the alert box making it visible.</p>
+                    is able to do this becasue a string is a defined array. It then creates a palindromObj with two
+                    properties (isPalindrome and reversedString). isPalindrome creates a booleon checking whether
+                    revString is the same as userString. reversedString is the reversed user input. This object is then
+                    returned.</p>
+                <p>The code then takes the palindromeObj from the previous function and runs it through a if else
+                    statement to check if isPalindrome is false. If it is a sweet alert will pop up saying "This is not
+                    a palindrome!" along with the the reversed user input. The backgound of this box will be red as will
+                    the confirm button. If isPalindrome is true a similar sweet alert will run except it will say "This
+                    is a palindrome!" and the background and confirm button will be green. </p>
             </div>
         </div>
     </main>
