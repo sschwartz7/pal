@@ -1,7 +1,8 @@
 //entry point
 function getValues() {
     let userString = document.getElementById("userString").value;
-    userString = userString.replace(/ /g, "").toLowerCase();
+    let regex = /[^a-z0-9]/gi; //anything that is not a letter or a number
+    userString = userString.replace(regex, "").toLowerCase();
     let revString= reverseString(userString);
     let answer = checkForPalindrome(userString, revString);
     displayResults(answer, revString);
